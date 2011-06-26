@@ -32,7 +32,7 @@ float interval = TWO_PI / segs;
 Serial myPort;    //!<  initialize serial port
 
 GLabel LBLFooterSx, LBLFooterDx, LBLPanelSelection, LBLSerialPort;
-GButton BTNOn, BTNOff, BTNRand, BTNFlsh;
+GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo;
 GWSlider SliderPWR;
 GCombo CBORGBSel, CBOSerialPort;
 
@@ -43,8 +43,11 @@ void settingGUI() {
 
   BTNOn = new GButton(this, "On", 20, 20, 120, 40);
   BTNOff = new GButton(this, "Off", 150, 20, 120, 40);
-  BTNRand = new GButton(this, "Rand", 20, 70, 120, 40);
-  BTNFlsh = new GButton(this, "Flash", 150, 70, 120, 40);
+  //BTNRand = new GButton(this, "Rand", 20, 70, 120, 40);
+  //BTNFlsh = new GButton(this, "Flash", 150, 70, 120, 40);
+  BTNRand = new GButton(this, "Rand", 20, 70, 80, 40);
+  BTNFlsh = new GButton(this, "Flash", 105, 70, 80, 40);
+  BTNUfo  = new GButton(this, "Ufo", 190, 70, 80, 40);
 
   SliderPWR = new GWSlider(this, "blue18px", 20, 125, 250);
 
@@ -91,7 +94,8 @@ public void ChangeSerialSetup() {
   // println("from setup: serial_port.available = "+serial_port.available());
 }
 
-int serial_device_number = 1;
+//! Porta in ordine numerico usata di default
+int serial_device_number = 0;
 String portName = Serial.list()[serial_device_number];
 
 void change_serial(int device_number)
@@ -318,6 +322,10 @@ public void handleButtonEvents(GButton button) {
     else if (button == BTNFlsh) {
       println("BTNFlsh");
       myPort.write("prg F\r\n");
+    }
+    else if (button == BTNUfo) {
+      println("BTNUfo");
+      myPort.write("prg U\r\n");
     }
     else {
       println("other");
