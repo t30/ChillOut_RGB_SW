@@ -52,7 +52,7 @@ void settingGUI() {
 
   SliderPWR = new GWSlider(this, "blue18px", 20, 125, 250);
 
-  LBLPanelSelection = new GLabel(this, "RGB panel type:", 15, 165, 140, 0);
+  LBLPanelSelection = new GLabel(this, "RGB panel type:", 15, 370, 140, 0);
   LBLSerialPort = new GLabel(this, "Select COM: ", 15, 400, 120, 0);
   //LBLFooterSx = new GLabel(this, "Lettura (mm)", 10, 455, 200, 0);
   LBLFooterDx = new GLabel(this, "2011 © Ing. M.Lampugnani", 570, 455, 800, 0);
@@ -74,7 +74,7 @@ public void createCombos() {
   String[] RGBType = new String[] {
     "Shade", "Tint", "Full"
   };
-  CBORGBSel = new GCombo(this, RGBType, 3, 150, 165, 120);
+  CBORGBSel = new GCombo(this, RGBType, 3, 150, 370, 120);
   CBORGBSel.setSelected(RGBMode);
 
   //println(CBORGBSel.selectedIndex());
@@ -142,8 +142,6 @@ void setup() {
   ellipseMode(RADIUS);
   noStroke();
 
-  settingGUI();
-
   // make the diameter 90% of the sketch area
   radius = min(width, height) * 0.45;
   segWidth = radius / steps;
@@ -153,9 +151,12 @@ void setup() {
   //  println("Before func: ");
   //  println(Serial.list());
 
+  settingGUI();
+
   ComboSerialPort();
   ChangeSerialSetup();
   //  ComboSerialPort();
+
 
   //! List all the available serial ports:
   //  println("After func: ");
