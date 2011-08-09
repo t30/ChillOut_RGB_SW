@@ -1,8 +1,9 @@
 import guicomponents.*;
-
+// Ing. M.Lampugnani
+// Control an RGB network lamp via RF module
+//
 // Subtractive Color Wheel with Serial
-// Based on a Processing example by Ira Greenberg. 
-// Serial output added by Tom Igoe
+// Color Wheel function by Ira Greenberg. 
 // 
 // The primaries are red, yellow, and blue. The secondaries are green, 
 // purple, and orange. The tertiaries are  yellow-orange, red-orange, 
@@ -11,7 +12,7 @@ import guicomponents.*;
 // Create a shade or tint of the subtractive color wheel using
 // SHADE or TINT parameters.
 
-// Updated 29 November 2010.
+// Updated 9 August 2011.
 
 import processing.serial.*;
 
@@ -19,8 +20,8 @@ int pwm = 255;     //!<  MAX brightness value
 int pwmNew = 255;  //!<  New MAX brightness value (used by dynamic function)
 
 int RGBMode = 0;    //!<  intial Mode for RGBPanel Selection
-int bkgCol = 127;  //!<  Background Color
-PImage img;	   //!<  Load Background image for 
+int bkgCol = 127;   //!<  Background Color
+PImage img;	    //!<  Load Background image for 
 
 int segs = 12;
 int steps = 25;
@@ -29,7 +30,7 @@ float radius;
 float segWidth;
 float interval = TWO_PI / segs;
 
-Serial myPort;    //!<  initialize serial port
+Serial myPort;     //!<  initialize serial port
 
 GLabel LBLFooterSx, LBLFooterDx, LBLPanelSelection, LBLSerialPort;
 GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo;
@@ -53,8 +54,7 @@ void settingGUI() {
 
   LBLPanelSelection = new GLabel(this, "RGB panel type:", 15, 165, 140, 0);
   LBLSerialPort = new GLabel(this, "Select COM: ", 15, 400, 120, 0);
-  //  LBLFooterSx = new GLabel(this, "Lettura (mm)", 10, 455, 200, 0);
-  //LBLFooterDx = new GLabel(this, "2011 © Ing. M.Lampugnani", 570, 455, 800, 0);
+  //LBLFooterSx = new GLabel(this, "Lettura (mm)", 10, 455, 200, 0);
   LBLFooterDx = new GLabel(this, "2011 © Ing. M.Lampugnani", 570, 455, 800, 0);
 
   // there are 3 types
@@ -112,7 +112,7 @@ void change_serial(int device_number)
   // catch and clear the first message in case it's garbage
   //myPort.readStringUntil(59);
 
-  println("from setup: myPort.available = "+myPort.available() + " for port name" + portName);
+  println("from setup: myPort.available = "+myPort.available() + " for port name " + portName);
 } 
 
 public void ComboSerialPort() {
@@ -288,7 +288,7 @@ void mouseReleased() {
     int g = int(green(targetColor));
     int b = int(blue(targetColor));
     // make a comma-separated string:
-    String colorString = "rgb " + hex(r, 2) + hex(g, 2) + hex(b, 2) + "\n";
+    String colorString = "rgb_" + hex(r, 2) + hex(g, 2) + hex(b, 2) + "\r\n";
     print(colorString);
     // send it out the serial port:
     myPort.write(colorString );
@@ -297,7 +297,7 @@ void mouseReleased() {
   if (pwmNew != pwm) {
     pwm = pwmNew;
     println("NewMaxPwm: "+pwm);
-    myPort.write("pwm " +  hex( pwm, 2 )  );
+    myPort.write("pwm_" +  hex( pwm, 2 ) + "0000\r\n" );
   }
 }
 
@@ -309,23 +309,23 @@ public void handleButtonEvents(GButton button) {
 
     if (button == BTNOn) {
       println("BTNOn");
-      myPort.write("set 1\r\n");
+      myPort.write("set_100000\r\n");
     }       
     else if (button == BTNOff) {
       println("BTNOff");
-      myPort.write("set 0\r\n");
+      myPort.write("set_000000\r\n");
     }
     else if (button == BTNRand) {
       println("BTNRand");
-      myPort.write("prg R\r\n");
+      myPort.write("prg_R00000\r\n");
     }
     else if (button == BTNFlsh) {
       println("BTNFlsh");
-      myPort.write("prg F\r\n");
+      myPort.write("prg_F00000\r\n");
     }
     else if (button == BTNUfo) {
       println("BTNUfo");
-      myPort.write("prg U\r\n");
+      myPort.write("prg_U00000\r\n");
     }
     else {
       println("other");
