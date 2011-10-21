@@ -33,14 +33,39 @@ float interval = TWO_PI / segs;
 Serial myPort;     //!<  initialize serial port
 
 GLabel LBLFooterSx, LBLFooterDx, LBLPanelSelection, LBLSerialPort;
-GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo;
+GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo, BTNcircle;
 GWSlider SliderPWR;
 GCombo CBORGBSel, CBOSerialPort;
+
+void ICONsetup()
+{
+  PGraphics icon = createGraphics(40, 40, JAVA2D);
+  icon.beginDraw();
+  icon.noStroke();
+  icon.fill(#FFFFFF);
+  icon.ellipse(20, 20, 100, 100);
+  icon.fill(#55AAFF);
+  icon.ellipse(8, 8, 40, 40);
+  icon.fill(#FFEE22);
+  icon.ellipse(9, 6, 8, 6);
+  icon.stroke(#FF0000);
+  icon.strokeWeight(14);
+  icon.line(7, 0, 7, 40);
+  icon.stroke(#00FF00);
+  icon.strokeWeight(14);
+  icon.line(20, 0, 20, 40);
+  icon.stroke(#0000FF);
+  icon.strokeWeight(14);
+  icon.line(33, 0, 33, 40);
+  icon.endDraw();
+  frame.setIconImage(icon.image);
+}
 
 void settingGUI() {
   //GComponent.globalColor = GCScheme.getColor(this,  GCScheme.BLUE_SCHEME);
   GComponent.globalFont = GFont.getFont(this, "Georgia", 16);
 
+  ICONsetup();
 
   BTNOn = new GButton(this, "On", 20, 20, 120, 40);
   BTNOff = new GButton(this, "Off", 150, 20, 120, 40);
@@ -49,8 +74,9 @@ void settingGUI() {
   BTNRand = new GButton(this, "Rand", 20, 70, 80, 40);
   BTNFlsh = new GButton(this, "Flash", 105, 70, 80, 40);
   BTNUfo  = new GButton(this, "Ufo", 190, 70, 80, 40);
+  BTNcircle  = new GButton(this, "Circle", 20, 120, 250, 40);
 
-  SliderPWR = new GWSlider(this, "blue18px", 20, 125, 250);
+  SliderPWR = new GWSlider(this, "blue18px", 20, 175, 250);
 
   LBLPanelSelection = new GLabel(this, "RGB panel type:", 15, 370, 140, 0);
   LBLSerialPort = new GLabel(this, "Select COM: ", 15, 400, 120, 0);
@@ -327,6 +353,10 @@ public void handleButtonEvents(GButton button) {
     else if (button == BTNUfo) {
       println("BTNUfo");
       myPort.write("prg_U00000\r\n");
+    }
+    else if (button == BTNcircle) {
+      println("BTNcircle");
+      myPort.write("prg_C00000\r\n");
     }
     else {
       println("other");
