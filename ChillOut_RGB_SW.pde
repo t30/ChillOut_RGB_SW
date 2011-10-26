@@ -19,6 +19,13 @@ import processing.serial.*;
 int pwm = 255;     //!<  MAX brightness value
 int pwmNew = 255;  //!<  New MAX brightness value (used by dynamic function)
 
+int FSTperiod = 100;
+int newFSTperiod = 100;
+int SLWperiod = 100;
+int newSLWperiod = 100;
+int LOGperiod = 100;
+int newLOGperiod = 100;
+
 int RGBMode = 0;    //!<  intial Mode for RGBPanel Selection
 int bkgCol = 127;   //!<  Background Color
 PImage img;	    //!<  Load Background image for 
@@ -34,7 +41,7 @@ Serial myPort;     //!<  initialize serial port
 
 GLabel LBLFooterSx, LBLFooterDx, LBLPanelSelection, LBLSerialPort;
 GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo, BTNcircle;
-GWSlider SliderPWR;
+GWSlider SliderPWR, SliderFST, SliderSLW, SliderLOG;
 GCombo CBORGBSel, CBOSerialPort;
 
 void ICONsetup()
@@ -77,6 +84,21 @@ void settingGUI() {
   BTNcircle  = new GButton(this, "Circle", 20, 120, 250, 40);
 
   SliderPWR = new GWSlider(this, "blue18px", 20, 175, 250);
+
+  SliderFST = new GWSlider(this, "blue18px", 20, 225, 250);
+  SliderFST.setValueType(GWSlider.INTEGER);
+  SliderFST.setLimits(100, 0, 100);
+  SliderFST.setRenderValueLabel(false);
+
+  SliderSLW = new GWSlider(this, "blue18px", 20, 275, 250);
+  SliderSLW.setValueType(GWSlider.INTEGER);
+  SliderSLW.setLimits(100, 0, 4096);
+  SliderSLW.setRenderValueLabel(false);
+
+  SliderLOG = new GWSlider(this, "blue18px", 20, 325, 250);
+  SliderLOG.setValueType(GWSlider.INTEGER);
+  SliderLOG.setLimits(100, 0, 4096);
+  SliderLOG.setRenderValueLabel(false);
 
   LBLPanelSelection = new GLabel(this, "RGB panel type:", 15, 370, 140, 0);
   LBLSerialPort = new GLabel(this, "Select COM: ", 15, 400, 120, 0);
@@ -326,6 +348,21 @@ void mouseReleased() {
     println("NewMaxPwm: "+pwm);
     myPort.write("pwm_" +  hex( pwm, 2 ) + "0000\r\n" );
   }
+  if (newFSTperiod != FSTperiod) {
+    FSTperiod = newFSTperiod;
+    println("newFSTperiod: "+FSTperiod);
+    myPort.write("clk_0" + hex( FSTperiod, 3 ) + "00\r\n" );
+  }
+  if (newSLWperiod != SLWperiod) {
+    SLWperiod = newSLWperiod;
+    println("newSLWperiod: "+SLWperiod);
+    myPort.write("clk_1" + hex( SLWperiod, 3 ) + "00\r\n" );
+  }
+  if (newLOGperiod != LOGperiod) {
+    LOGperiod = newLOGperiod;
+    println("newLOGperiod: "+LOGperiod);
+    myPort.write("clk_2" + hex( LOGperiod, 3 ) + "00\r\n" );
+  }
 }
 
 
@@ -366,13 +403,43 @@ public void handleButtonEvents(GButton button) {
 
 // Handle slider events
 public void handleSliderEvents(GSlider slider) {
-  if (slider.isValueChanging()) { 
-
-    //    pwmNew = map(slider.getValue(), 0, 100, 50, 255);
-    pwmNew = slider.getValue();
-    pwmNew = (int)map((float)pwmNew, (float)0, (float)100, (float)2, (float)255);
-    //    println("integer value:" + slider.getValue() + " float value:" + slider.getValuef());
-    //    println("pressed mouse key");
+  if (slider==SliderPWR) {
+    if (slider.isValueChanging()) { 
+      //    pwmNew = map(slider.getValue(), 0, 100, 50, 255);
+      pwmNew = slider.getValue();
+      pwmNew = (int)map((float)pwmNew, (float)0, (float)100, (float)2, (float)255);
+      //    println("integer value:" + slider.getValue() + " float value:" + slider.getValuef());
+      //    println("pressed mouse key");
+    }
+  }
+  else if (slider==SliderFST) {
+    if (slider.isValueChanging()) { 
+      //    pwmNew = map(slider.getValue(), 0, 100, 50, 255);
+      newFSTperiod = slider.getValue();
+      newFSTperiod = (int)map((float)newFSTperiod, (float)0, (float)100, (float)5, (float)100);
+      //    println("integer value:" + slider.getValue() + " float value:" + slider.getValuef());
+      //    println("pressed mouse key");
+    }
+  }
+  else if (slider==SliderSLW) {
+    if (slider.isValueChanging()) { 
+      //    pwmNew = map(slider.getValue(), 0, 100, 50, 255);
+      newSLWperiod = slider.getValue();
+      newSLWperiod = (int)map((float)newSLWperiod, (float)0, (float)4096, (float)5, (float)4096);
+      //    println("integer value:" + slider.getValue() + " float value:" + slider.getValuef());
+      //    println("pressed mouse key");
+    }
+  }
+  else if (slider==SliderLOG) {
+    if (slider.isValueChanging()) { 
+      //    pwmNew = map(slider.getValue(), 0, 100, 50, 255);
+      newLOGperiod = slider.getValue();
+      newLOGperiod = (int)map((float)newLOGperiod, (float)0, (float)4096, (float)5, (float)4096);
+      //    println("integer value:" + slider.getValue() + " float value:" + slider.getValuef());
+      //    println("pressed mouse key");
+    }
+  }
+  else {
   }
 }
 
