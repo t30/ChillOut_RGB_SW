@@ -17,7 +17,7 @@ public void ChangeSerialSetup() {
 
 void change_serial(int device_number)
 {
-  println("Change to dev index: "+device_number);
+  printlnDATA("Change to dev index: "+device_number);
   myPort.stop();
 
   portName = Serial.list()[device_number];
@@ -27,7 +27,7 @@ void change_serial(int device_number)
   myPort = new Serial(this, portName, 9600); 
   myPort.clear();
 
-  println("from setup: myPort.available = "+myPort.available() + " for port name " + portName);
+  printlnDATA("from setup: myPort.available = "+myPort.available() + " for port name " + portName);
 }
 
 public void ComboSerialPort() {

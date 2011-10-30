@@ -42,7 +42,7 @@ Serial myPort;     //!<  initialize serial port
 GLabel LBLFooterSx, LBLFooterDx, LBLPanelSelection, LBLSerialPort;
 GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo, BTNcircle;
 GWSlider SliderPWR, SliderFST, SliderSLW, SliderLOG;
-GCombo CBORGBSel, CBOSerialPort;
+GCombo CBORGBSel, CBOSerialPort, CBODBGlvl;
 
 
 
@@ -63,22 +63,10 @@ void setup() {
 
   //  drawShadeWheel();
 
-  //  println("Before func: ");
-  //  println(Serial.list());
-
   settingGUI();
 
   ComboSerialPort();
   ChangeSerialSetup();
-  //  ComboSerialPort();
-
-
-  //! List all the available serial ports:
-  //  println("After func: ");
-  //  println(Serial.list());
-
-  // open the first serial port in your computer's list
-  //myPort = new Serial(this, Serial.list()[0], 9600);
 
   //do not start looping draw() func
   noLoop();
@@ -104,37 +92,37 @@ void mousePressed() {
 void mouseReleased() {
   // get the color of the mouse position's pixel:
   color targetColor = get(mouseX, mouseY);
-  if (mouseX > 300) {  //controllo per non eseguire le operazioni in zona tasti
+  if (mouseX > 320) {  //controllo per non eseguire le operazioni in zona tasti
     // get the component values:
     int r = int(red(targetColor));
     int g = int(green(targetColor));
     int b = int(blue(targetColor));
     // make a comma-separated string:
     String colorString = "rgb_" + hex(r, 2) + hex(g, 2) + hex(b, 2) + "\r\n";
-    print(colorString);
+    printDATA(colorString);
     // send it out the serial port:
-    myPort.write(colorString );
+    sendDATA(colorString );
   }
   noLoop();
   if (pwmNew != pwm) {
     pwm = pwmNew;
-    println("NewMaxPwm: "+pwm);
-    myPort.write("pwm_" +  hex( pwm, 2 ) + "0000\r\n" );
+    printDATA("NewMaxPwm: "+pwm);
+    sendDATA("pwm_" +  hex( pwm, 2 ) + "0000\r\n" );
   }
   if (newFSTperiod != FSTperiod) {
     FSTperiod = newFSTperiod;
-    println("newFSTperiod: "+FSTperiod);
-    myPort.write("clk_0" + hex( FSTperiod, 3 ) + "00\r\n" );
+    printDATA("newFSTperiod: "+FSTperiod);
+    sendDATA("clk_0" + hex( FSTperiod, 3 ) + "00\r\n" );
   }
   if (newSLWperiod != SLWperiod) {
     SLWperiod = newSLWperiod;
-    println("newSLWperiod: "+SLWperiod);
-    myPort.write("clk_1" + hex( SLWperiod, 3 ) + "00\r\n" );
+    printDATA("newSLWperiod: "+SLWperiod);
+    sendDATA("clk_1" + hex( SLWperiod, 3 ) + "00\r\n" );
   }
   if (newLOGperiod != LOGperiod) {
     LOGperiod = newLOGperiod;
-    println("newLOGperiod: "+LOGperiod);
-    myPort.write("clk_2" + hex( LOGperiod, 3 ) + "00\r\n" );
+    printDATA("newLOGperiod: "+LOGperiod);
+    sendDATA("clk_2" + hex( LOGperiod, 3 ) + "00\r\n" );
   }
 }
 
