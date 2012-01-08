@@ -12,7 +12,7 @@ public void handleSliderEvents(GSlider slider) {
   else if (slider==SliderFST) {
     if (slider.isValueChanging()) { 
       newFSTperiod = slider.getValue();
-      newFSTperiod = (int)map((float)newFSTperiod, (float)0, (float)100, (float)5, (float)100);
+      newFSTperiod = (int)map((float)newFSTperiod, (float)0, (float)100, (float)4, (float)99);  //from 4 => FW 4+1=5ms & 99 => FW 99+1=100ms
     }
   }
   else if (slider==SliderSLW) {

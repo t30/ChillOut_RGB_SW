@@ -1,5 +1,4 @@
-import guicomponents.*;
-// Ing. M.Lampugnani
+/*! @file ChillOut_RGB_SW.pde
 // Control an RGB network lamp via RF module
 //
 // Subtractive Color Wheel with Serial
@@ -12,8 +11,13 @@ import guicomponents.*;
 // Create a shade or tint of the subtractive color wheel using
 // SHADE or TINT parameters.
 
-// Updated 9 August 2011.
+ @author Ing. M.Lampugnani
+ @par Company:
+ MyCompany
+ @version 0.0.1-RF brach
+ @date 31th October 2011 */
 
+import guicomponents.*;
 import processing.serial.*;
 
 int pwm = 255;     //!<  MAX brightness value
@@ -129,6 +133,6 @@ void mouseReleased() {
 
 // Handle Option events
 public void handleOptionEvents(GOption selected, GOption deselected) {
-  println("Option: "+selected);
+  println("Option selected: "+selected+" deselected:"+deselected);
 }
 

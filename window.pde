@@ -1,3 +1,4 @@
+//create window and bar icon
 void createICON()
 {
   PGraphics icon = createGraphics(40, 40, JAVA2D);

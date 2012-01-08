@@ -1,9 +1,9 @@
 // Handle combo events
 public void handleComboEvents(GCombo combo) {
   if (CBODBGlvl == combo) {
-    //RGBMode = CBODBGlvl.selectedIndex();
-    printDATA("CBODBGlvl: "+RGBMode);
-    sendDATA("dbg_" +  CBODBGlvl.selectedIndex() + "00000\r\n" );
+    int DBGlvl = CBODBGlvl.selectedIndex();
+    printDATA("CBODBGlvl: "+DBGlvl);
+    sendDATA("dbg_" +  DBGlvl + "00000\r\n" );
   }
 
   if (CBORGBSel == combo) {
