@@ -46,8 +46,8 @@ Serial myPort;     //!<  initialize serial port
 GLabel LBLFooterSx, LBLFooterDx, LBLPanelSelection, LBLSerialPort;
 GButton BTNOn, BTNOff, BTNRand, BTNFlsh, BTNUfo, BTNcircle;
 GWSlider SliderPWR, SliderFST, SliderSLW, SliderLOG;
-GCombo CBORGBSel, CBOSerialPort, CBODBGlvl;
-
+GCombo CBORGBSel, CBOSerialPort, CBODBGlvl, CBOTMRsht;
+GTextField TXTlog;
 
 
 void setup() {
@@ -73,7 +73,7 @@ void setup() {
   ChangeSerialSetup();
 
   //do not start looping draw() func
-  noLoop();
+  //noLoop();
   //draw the RGB Selection panel the first time
   drawPanelRGB();
 }

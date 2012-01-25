@@ -36,6 +36,7 @@ void settingGUI() {
   LBLFooterDx = new GLabel(this, "2011 © Ing. M.Lampugnani", 570, 455, 800, 0);
 
   createSlider();
+  createTextField();
   createCombos();
   img = loadImage("RGBR.png");
 }

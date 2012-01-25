@@ -61,7 +61,7 @@ void drawShadeWheel() {
     };
     for (int i = 0; i < segs; i++) {
       fill(cols[i]);
-      arc((width/2)+150, (height/2), radius, radius, 
+      arc((width/2)+180, (height/2), radius, radius, 
       interval*i+rotAdjust, interval*(i+1)+rotAdjust);
     }
     radius -= segWidth;
@@ -87,7 +87,7 @@ void drawTintWheel() {
     };
     for (int i = 0; i < segs; i++) {
       fill(cols[i]);
-      arc(width/2+150, height/2, radius, radius, 
+      arc(width/2+180, height/2, radius, radius, 
       interval*i+rotAdjust, interval*(i+1)+rotAdjust);
     }
     radius -= segWidth;

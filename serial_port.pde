@@ -36,10 +36,10 @@ public void ComboSerialPort() {
   //for cyclic update of serial port list
   //uncomment this 4 line and comment the same 4 line in combo file
   //CreateCombos() function
-//  String[] SerialPort = new String[] {
-//    "Select", " "
-//  };
-//  CBOSerialPort = new GCombo(this, SerialPort, 2, 120, 400, 150);
+  //  String[] SerialPort = new String[] {
+  //    "Select", " "
+  //  };
+  //  CBOSerialPort = new GCombo(this, SerialPort, 2, 120, 400, 150);
   for (int i=0;i<Serial.list().length;i++) {
     //Rimuove l'opzione che sta per rimpiazzare
     CBOSerialPort.removeOption(i);
@@ -48,3 +48,4 @@ public void ComboSerialPort() {
   }   
   //CBOSerialPort.setSelected(0);
 }
+
