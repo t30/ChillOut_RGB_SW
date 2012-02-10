@@ -1,16 +1,16 @@
 /*! @file ChillOut_RGB_SW.pde
-// Control an RGB network lamp via RF module
-//
-// Subtractive Color Wheel with Serial
-// Color Wheel function by Ira Greenberg. 
-// 
-// The primaries are red, yellow, and blue. The secondaries are green, 
-// purple, and orange. The tertiaries are  yellow-orange, red-orange, 
-// red-purple, blue-purple, blue-green, and yellow-green.
-// 
-// Create a shade or tint of the subtractive color wheel using
-// SHADE or TINT parameters.
-
+ // Control an RGB network lamp via RF module
+ //
+ // Subtractive Color Wheel with Serial
+ // Color Wheel function by Ira Greenberg. 
+ // 
+ // The primaries are red, yellow, and blue. The secondaries are green, 
+ // purple, and orange. The tertiaries are  yellow-orange, red-orange, 
+ // red-purple, blue-purple, blue-green, and yellow-green.
+ // 
+ // Create a shade or tint of the subtractive color wheel using
+ // SHADE or TINT parameters.
+ 
  @author Ing. M.Lampugnani
  @par Company:
  MyCompany
@@ -76,6 +76,7 @@ void setup() {
   //noLoop();
   //draw the RGB Selection panel the first time
   drawPanelRGB();
+  frameRate(1);
 }
 
 
@@ -90,7 +91,8 @@ void draw() {
 }
 
 void mousePressed() {
-  loop();
+  //loop();
+  frameRate(15);
 }
 
 void mouseReleased() {
@@ -107,7 +109,8 @@ void mouseReleased() {
     // send it out the serial port:
     sendDATA(colorString );
   }
-  noLoop();
+  //noLoop();
+  frameRate(1);
   if (pwmNew != pwm) {
     pwm = pwmNew;
     printDATA("NewMaxPwm: "+pwm);
